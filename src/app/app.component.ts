@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +7,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  @ViewChild('f') signupForm: NgForm;
+  defaultQuestion: string = 'pet';
   suggestUserName() {
     const suggestedName = 'Superuser';
   }
 
-  onSubmit(form: HTMLFormElement) {
-    console.log(form.value)
+  // 單純使用 HTML 操控表單
+  // onSubmit(form: HTMLFormElement) {
+  //   console.log(form.value)
+  // }
+
+  // 透過 ngFrom 操控表單
+  // onSubmit(form: NgForm) {
+  //   console.log(form.value)
+  // }
+
+  // 透過 @ViewChild reference 操控表單
+  onSubmit() {
+    console.log(this.signupForm)
   }
 }

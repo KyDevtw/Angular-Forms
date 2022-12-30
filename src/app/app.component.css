@@ -1,3 +1,13 @@
 .container {
   margin-top: 30px;
 }
+
+/*
+  ng-invalid 只要值不符合就會加上
+  ng-touched 點擊後就會加入
+  .ng-invalid.ng-touched 點擊過後若不符合值的規範就會作用
+*/
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
