@@ -6,7 +6,13 @@
       <!-- ngForm 知會 angular 這是由 js 操控的表單  -->
       <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div id="user-data">
-          <div class="form-group">
+          <!-- ngModelGroup 會讓formData 內多包一個該值的物件 ex. userData: {key: value} -->
+          <!-- #userData="ngModelGroup" 近似於 下面 #email="ngModel" 用法-->
+          <div
+            class="form-group"
+            ngModelGroup="userData"
+            #userData="ngModelGroup"
+          >
             <label for="username">Username</label>
             <!-- ngModel 幫助 Angular 辨識這個元件正與 form 有所連結 -->
             <input
@@ -34,6 +40,7 @@
               <span class="help-block" *ngIf="!email.isvalid && email.touched">Please enter a valid value!</span>
           </div>
         </div>
+        <p *ngIf="!userData.isvalid && userData.touched">User Data is invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <!-- [ngModel]="defaultQuestion" 綁定 defaultQuestion 初始值 -->
@@ -46,6 +53,34 @@
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
+        </div>
+        <div class="form-group">
+          <!--  三中操作 form 的方式 1. submit 送出－表單 2. one-way binding 給予預設資料 3. two-way bindling 更彈性操作表單 -->
+          <textarea
+            name="questionAnswer"
+            id=""
+            class="form-control"
+            cols="30"
+            rows="3"
+            [(ngModel)]="answer"
+          ></textarea>
+          <p>Your reply: {{ answer }}</p>
+          <div
+            class="radio"
+            *ngFor="let gender of genders"
+          >
+            <label>
+              <!-- [value] => vlaue 做綁定  -->
+              <input
+                type="radio"
+                name="gender"
+                ngModel
+                [value]="gender"
+                required
+              >
+              {{gender}}
+            </label>
+          </div>
         </div>
         <!-- disabled binding 到 #f:NgForm 的 valid -->
         <button
